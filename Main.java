@@ -1,3 +1,4 @@
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 public class Main {
@@ -18,16 +19,25 @@ public class Main {
                     String key = sc.next();
                     System.out.print("enter value: ");
                     String keyValue = sc.next();
-                    engine.put(key.getBytes(), keyValue.getBytes());
+                    engine.put(
+                        key.getBytes(StandardCharsets.UTF_8),
+                        keyValue.getBytes(StandardCharsets.UTF_8)
+                    );
                     break;
                 case 2:
                     System.out.print("enter key value: ");
-                    byte[] readKey = sc.next().getBytes();
-                    System.out.println(engine.get(readKey));
+                    byte[] readKey = sc.next().getBytes(StandardCharsets.UTF_8);
+                    byte[] readValue = engine.get(readKey);
+
+                    if (readValue != null) {
+                        System.out.println(
+                            new String(readValue, StandardCharsets.UTF_8)
+                        );
+                    }
                     break;
                 case 3:
                     System.out.print("enter key: ");
-                    byte[] delKey = sc.next().getBytes();
+                    byte[] delKey = sc.next().getBytes(StandardCharsets.UTF_8);
                     engine.delete(delKey);
                     break;
                 case 0:
